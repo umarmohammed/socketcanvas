@@ -24,7 +24,7 @@ stages:
       displayName: Build an image
       inputs:
         containerRegistry: 'dockerhub'
-        repository: 'artdemo'
+        repository: 'umarmohammed/artdemo'
         command: 'buildAndPush'
         Dockerfile: 'src/ngClient/Dockerfile'
         tags: '$(tag)'
