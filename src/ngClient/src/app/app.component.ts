@@ -25,6 +25,7 @@ import { SocketService } from './services/socket.service';
       canvas {
         border: 2px solid #1976d2;
         border-radius: 5px;
+        margin-top: 20px;
       }
     `
   ]
