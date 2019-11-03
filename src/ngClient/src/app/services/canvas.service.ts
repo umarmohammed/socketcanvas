@@ -1,11 +1,16 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { Point } from '../models/point';
+import { ColorsService } from './colors.service';
 
 @Injectable({ providedIn: 'root' })
 export class CanvasService {
   private ctx: CanvasRenderingContext2D;
   private canvasRect: ClientRect;
   private canvasEl: HTMLCanvasElement;
+
+  constructor(private colors: ColorsService) {
+    this.colors.selectedColor$.subscribe(color => this.setCtxColor(color));
+  }
 
   initCanvas(canvas: ElementRef) {
     this.canvasEl = canvas.nativeElement;
@@ -27,6 +32,12 @@ export class CanvasService {
 
   drawPoint(point: Point) {
     point.start ? this.drawStartPoint(point) : this.drawMovePoint(point);
+  }
+
+  private setCtxColor(hex: string) {
+    if (this.ctx) {
+      this.ctx.strokeStyle = hex;
+    }
   }
 
   private drawStartPoint(point: Point) {
