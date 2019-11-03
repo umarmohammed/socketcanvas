@@ -10,8 +10,8 @@ import { Point } from './models/point';
       #canvas
       width="300"
       height="500"
-      (touchmove)="onTouchEvent($event)"
-      (touchstart)="onTouchEvent($event)"
+      (touchmove)="ocr.onTouch($event)"
+      (touchstart)="ocr.onTouch($event)"
     ></canvas>
   `,
   styles: [
@@ -31,17 +31,9 @@ import { Point } from './models/point';
 export class AppComponent implements AfterViewInit {
   @ViewChild('canvas', { static: false }) canvas: ElementRef;
 
-  constructor(private canvasService: CanvasService, private ocr: OcrService) {
-    this.ocr.point$.subscribe((point: Point) =>
-      this.canvasService.drawPoint(point)
-    );
-  }
+  constructor(private canvasService: CanvasService, public ocr: OcrService) {}
 
   ngAfterViewInit() {
     this.canvasService.initCanvas(this.canvas);
-  }
-
-  onTouchEvent(touchEvent: TouchEvent) {
-    this.ocr.onTouch(touchEvent);
   }
 }

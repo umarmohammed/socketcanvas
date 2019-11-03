@@ -5,8 +5,8 @@ import { Subject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class CanvasService {
   private ctx: CanvasRenderingContext2D;
-  canvasRect: ClientRect;
-  canvasEl: HTMLCanvasElement;
+  private canvasRect: ClientRect;
+  private canvasEl: HTMLCanvasElement;
 
   initCanvas(canvas: ElementRef) {
     this.canvasEl = canvas.nativeElement;
