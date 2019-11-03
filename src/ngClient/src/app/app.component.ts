@@ -1,4 +1,10 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { CanvasService } from './services/canvas.service';
 import { SocketService } from './services/socket.service';
 
@@ -8,7 +14,7 @@ import { SocketService } from './services/socket.service';
     <canvas
       #canvas
       width="300"
-      height="500"
+      height="450"
       (touchmove)="canvasService.onTouch($event)"
       (touchstart)="canvasService.onTouch($event)"
     ></canvas>
@@ -28,7 +34,8 @@ import { SocketService } from './services/socket.service';
         margin: 20px 0;
       }
     `
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements AfterViewInit {
   @ViewChild('canvas', { static: false }) canvas: ElementRef;
