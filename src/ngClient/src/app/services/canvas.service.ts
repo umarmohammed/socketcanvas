@@ -12,7 +12,7 @@ export class CanvasService {
     this.canvasEl = canvas.nativeElement;
     this.ctx = this.canvasEl.getContext('2d');
 
-    this.ctx.lineWidth = 35;
+    this.ctx.lineWidth = 20;
     this.ctx.lineCap = 'round';
 
     this.canvasRect = this.canvasEl.getBoundingClientRect();
