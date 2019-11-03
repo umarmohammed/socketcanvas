@@ -18,16 +18,14 @@ import { ColorsService } from '../services/colors.service';
         display: flex;
         justify-content: space-evenly;
         width: 100%;
-        margin: 10px 0;
       }
       .picker {
-        width: 20px;
-        height: 20px;
+        padding: 30px;
         border-radius: 50%;
-        border: 3px solid white;
+        border: 5px solid white;
       }
       .picker.selected {
-        border: 3px solid yellow;
+        border: 5px solid yellow;
       }
     `
   ]

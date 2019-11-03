@@ -19,7 +19,8 @@ import { SocketService } from './services/socket.service';
       :host {
         display: grid;
         place-items: center;
-        height: 80vh;
+        height: calc(100vh - 30px);
+        grid-template-rows: 1fr 70px;
       }
       canvas {
         border: 2px solid #1976d2;
