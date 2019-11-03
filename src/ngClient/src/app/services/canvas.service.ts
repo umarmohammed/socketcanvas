@@ -1,6 +1,9 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { Point } from '../models/point';
+import { Subject } from 'rxjs';
 import { ColorsService } from './colors.service';
+import { withLatestFrom, map } from 'rxjs/operators';
+import { SocketService } from './socket.service';
 
 @Injectable({ providedIn: 'root' })
 export class CanvasService {
@@ -8,8 +11,15 @@ export class CanvasService {
   private canvasRect: ClientRect;
   private canvasEl: HTMLCanvasElement;
 
-  constructor(private colors: ColorsService) {
-    this.colors.selectedColor$.subscribe(color => this.setCtxColor(color));
+  private pointSubject = new Subject<Point>();
+  point$ = this.pointSubject.asObservable().pipe(
+    withLatestFrom(this.colors.selectedColor$),
+    map(([point, color]) => ({ ...point, color }))
+  );
+
+  constructor(private colors: ColorsService, private socket: SocketService) {
+    this.socket.point$.subscribe((point: Point) => this.drawPoint(point));
+    this.point$.subscribe(point => this.socket.send(point));
   }
 
   initCanvas(canvas: ElementRef) {
@@ -22,22 +32,21 @@ export class CanvasService {
     this.canvasRect = this.canvasEl.getBoundingClientRect();
   }
 
-  touchEventToPoint(touchEvent: TouchEvent): Point {
-    return {
-      x: touchEvent.touches[0].clientX - this.canvasRect.left,
-      y: touchEvent.touches[0].clientY - this.canvasRect.top,
-      start: touchEvent.type === 'touchstart'
-    };
+  onTouch(touchEvent: TouchEvent) {
+    const point = this.touchEventToPoint(touchEvent);
+    this.pointSubject.next(point);
   }
 
   drawPoint(point: Point) {
     point.start ? this.drawStartPoint(point) : this.drawMovePoint(point);
   }
 
-  private setCtxColor(hex: string) {
-    if (this.ctx) {
-      this.ctx.strokeStyle = hex;
-    }
+  private touchEventToPoint(touchEvent: TouchEvent): Point {
+    return {
+      x: touchEvent.touches[0].clientX - this.canvasRect.left,
+      y: touchEvent.touches[0].clientY - this.canvasRect.top,
+      start: touchEvent.type === 'touchstart'
+    };
   }
 
   private drawStartPoint(point: Point) {
@@ -48,6 +57,7 @@ export class CanvasService {
   private drawMovePoint(point: Point) {
     this.ctx.lineTo(point.x, point.y);
     this.ctx.stroke();
+    this.ctx.strokeStyle = point.color;
     this.ctx.moveTo(point.x, point.y);
   }
 }

@@ -9,8 +9,8 @@ import { SocketService } from './services/socket.service';
       #canvas
       width="300"
       height="500"
-      (touchmove)="ocr.onTouch($event)"
-      (touchstart)="ocr.onTouch($event)"
+      (touchmove)="canvasService.onTouch($event)"
+      (touchstart)="canvasService.onTouch($event)"
     ></canvas>
     <app-color-picker></app-color-picker>
   `,
@@ -31,10 +31,7 @@ import { SocketService } from './services/socket.service';
 export class AppComponent implements AfterViewInit {
   @ViewChild('canvas', { static: false }) canvas: ElementRef;
 
-  constructor(
-    private canvasService: CanvasService,
-    public ocr: SocketService
-  ) {}
+  constructor(public canvasService: CanvasService, public ocr: SocketService) {}
 
   ngAfterViewInit() {
     this.canvasService.initCanvas(this.canvas);
