@@ -1,5 +1,7 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { CanvasService } from './services/canvas.service';
+import { OcrService } from './services/ocr.service';
+import { Point } from './models/point';
 
 @Component({
   selector: 'app-root',
@@ -29,13 +31,17 @@ import { CanvasService } from './services/canvas.service';
 export class AppComponent implements AfterViewInit {
   @ViewChild('canvas', { static: false }) canvas: ElementRef;
 
-  constructor(private canvasService: CanvasService) {}
+  constructor(private canvasService: CanvasService, private ocr: OcrService) {
+    this.ocr.point$.subscribe((point: Point) =>
+      this.canvasService.drawPoint(point)
+    );
+  }
 
   ngAfterViewInit() {
     this.canvasService.initCanvas(this.canvas);
   }
 
   onTouchEvent(touchEvent: TouchEvent) {
-    this.canvasService.onTouch(touchEvent);
+    this.ocr.onTouch(touchEvent);
   }
 }
