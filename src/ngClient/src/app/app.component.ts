@@ -12,6 +12,7 @@ import { SocketService } from './services/socket.service';
       (touchmove)="ocr.onTouch($event)"
       (touchstart)="ocr.onTouch($event)"
     ></canvas>
+    <app-color-picker></app-color-picker>
   `,
   styles: [
     `
