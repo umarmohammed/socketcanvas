@@ -20,12 +20,12 @@ import { SocketService } from './services/socket.service';
         display: grid;
         place-items: center;
         height: 80vh;
-        grid-template-rows: 1fr 150px;
+        grid-template-rows: 1fr 70px;
       }
       canvas {
         border: 2px solid #1976d2;
         border-radius: 5px;
-        margin-top: 20px;
+        margin: 20px 0;
       }
     `
   ]
