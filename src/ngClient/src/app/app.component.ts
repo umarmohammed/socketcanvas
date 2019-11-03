@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { CanvasService } from './services/canvas.service';
-import { OcrService } from './services/ocr.service';
-import { Point } from './models/point';
+import { SocketService } from './services/socket.service';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +30,10 @@ import { Point } from './models/point';
 export class AppComponent implements AfterViewInit {
   @ViewChild('canvas', { static: false }) canvas: ElementRef;
 
-  constructor(private canvasService: CanvasService, public ocr: OcrService) {}
+  constructor(
+    private canvasService: CanvasService,
+    public ocr: SocketService
+  ) {}
 
   ngAfterViewInit() {
     this.canvasService.initCanvas(this.canvas);

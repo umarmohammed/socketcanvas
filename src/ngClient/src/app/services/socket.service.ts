@@ -5,7 +5,7 @@ import { CanvasService } from './canvas.service';
 import { Point } from '../models/point';
 
 @Injectable({ providedIn: 'root' })
-export class OcrService {
+export class SocketService {
   private url = `${environment.baseUrl}api/point`;
 
   private subject = webSocket(this.url);
