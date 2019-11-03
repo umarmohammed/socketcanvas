@@ -24,6 +24,6 @@ stages:
       displayName: Build an image
       inputs:
         command: build
-        dockerfile: 'socketcanvas/src/ngClient/Dockerfile'
+        dockerfile: 'src/ngClient/Dockerfile'
         tags: |
           $(tag)
