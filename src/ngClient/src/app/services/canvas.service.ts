@@ -1,6 +1,5 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { Point } from '../models/point';
-import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CanvasService {
