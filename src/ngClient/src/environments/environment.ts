@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'wss://art-demoapi.azurewebsites.net/'
+  baseUrl: 'wss://localhost:44372/'
 };
 
 /*
